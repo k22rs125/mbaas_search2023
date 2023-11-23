@@ -25,20 +25,39 @@
 
         function searchName() {
             let name = $("#name").val();
-            let TestDataClass = ncmb.DataStore(db); 
+            let TestDataClass = ncmb.DataStore(db);
+            TestDataClass.equalTo("name", name).fetchAll().then(function(results) {
+                showResults(results);
+            })
+        }
+
+        function searchLevel() {
+            let level = parseInt($("#level").val());
+            let TestDataClass = ncmb.DataStore(db);
             TestDataClass
-                .equalTo("neme", name)
+                .equalTo("level", level)
                 .fetchAll()
                 .then(function(results) {
                     showResults(results);
                 })
         }
 
-        function searchLevel() {
-            let level = parseInt($("#level").val());
-            let TestDataClass = ncmb.DataStore(db); 
+        function searchLevelLT() {
+            let levelLt = parseInt($("#level").val());
+            let TestDataClass = ncmb.DataStore(db);
             TestDataClass
-                .equalTo("level", level)
+                .lessThan("level", levelLt)
+                .fetchAll()
+                .then(function(results) {
+                    showResults(results);
+                })
+        }
+
+        function searchLevelGT() {
+            let levelGt = parseInt($("#level").val());
+            let TestDataClass = ncmb.DataStore(db);
+            TestDataClass
+                .greaterThan("level", levelGt)
                 .fetchAll()
                 .then(function(results) {
                     showResults(results);
@@ -77,7 +96,11 @@
     <div id="button">
         <button class="btn" onclick="fetchAll()">Fetch All</button>
         <button class="btn" onclick="searchName()">Name</button>
+        <br>
+        <button class="btn" onclick="searchLevelLT()">Level &lt;</button>
         <button class="btn" onclick="searchLevel()">Level</button>
+        <button class="btn" onclick="searchLevelGT()">Level &gt;</button>
+
     </div>
     <div id="message">message area</div>
 </body>
