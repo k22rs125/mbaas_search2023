@@ -13,20 +13,20 @@
         // NCMB アクセスの準備
         let ncmb = new NCMB(appKey, clientKey);
         // 本アプリで使うクラスの指定。const は定数の宣言。変更できない変数と思えば良い。
-        const db = "m";
+        const db = "weather";
 
         function fetchAll() {
             let TestDataClass = ncmb.DataStore(db);
-            TestDataClass.order("name", false).fetchAll()
+            TestDataClass.order("htemp", false).fetchAll()
                 .then(function(results) {
                     showResults(results);
                 })
         }
 
-        function searchName() {
-            let name = $("#name").val();
+        function searchCity() {
+            let city = $("#city").val();
             let TestDataClass = ncmb.DataStore(db);
-            TestDataClass.equalTo("name", name).fetchAll().then(function(results) {
+            TestDataClass.equalTo("city", name).fetchAll().then(function(results) {
                 showResults(results);
             })
         }
@@ -66,14 +66,14 @@
 
         function showResults(results) {
             // テーブルのヘッダを生成
-            let msg = "<table><tr><th>name</th><th>Lvl</th><th>attack</th><th>defence</th></tr>";
+            let msg = "<table><tr><th>都市</th><th>天気</th><th>最高気温</th><th>最低気温</th></tr>";
             for (let i = 0; i < results.length; i++) {
                 // 各データを収めた表の列を生成
                 msg += "<tr>";
-                msg += "<td>" + results[i].name + "</td>";
-                msg += "<td class='num'>" + results[i].level + "</td>";
-                msg += "<td class='num'>" + results[i].attack + "</td>";
-                msg += "<td class='num'>" + results[i].defence + "</td>";
+                msg += "<td>" + results[i].city + "</td>";
+                msg += "<td class='num'>" + results[i].weather + "</td>";
+                msg += "<td class='num'>" + results[i].htemp + "</td>";
+                msg += "<td class='num'>" + results[i].ltemp + "</td>";
                 msg += "</tr>";
             }
             // テーブルのテイラを生成
@@ -86,12 +86,12 @@
 <body>
     <h1>2022年12月25日</h1>
     <div>
-        <label for="city">name:</label>
-        <input id="name" type="text" placeholder="monster name">
+        <label for="city">city:</label>
+        <input id="city" type="text" placeholder="都市の名前を入力してください">
     </div>
     <div>
-        <label for="level">level:</label>
-        <input id="level" type="number" placeholder="monster level">
+        <label for="weather">weather:</label>
+        <input id="level" type="text" placeholder="天気を入力してください">
     </div>
     <div id="button">
         <button class="btn" onclick="fetchAll()">Fetch All</button>
