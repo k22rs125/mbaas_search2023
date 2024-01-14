@@ -26,7 +26,7 @@
         function searchCity() {
             let city = $("#city").val();
             let TestDataClass = ncmb.DataStore(db);
-            TestDataClass.equalTo("city", name).fetchAll().then(function(results) {
+            TestDataClass.equalTo("city", city).fetchAll().then(function(results) {
                 showResults(results);
             })
         }
@@ -95,7 +95,7 @@
     </div>
     <div id="button">
         <button class="btn" onclick="fetchAll()">Fetch All</button>
-        <button class="btn" onclick="searchName()">Name</button>
+        <button class="btn" onclick="searchCity()">Name</button>
         <br>
         <button class="btn" onclick="searchLevelLT()">Level &lt;</button>
         <button class="btn" onclick="searchLevel()">Level</button>
