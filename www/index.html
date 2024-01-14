@@ -31,11 +31,11 @@
             })
         }
 
-        function searchLevel() {
-            let level = parseInt($("#level").val());
+        function searchtemp() {
+            let level = parseInt($("#temp").val());
             let TestDataClass = ncmb.DataStore(db);
             TestDataClass
-                .equalTo("level", level)
+                .equalTo("temp", temp)
                 .fetchAll()
                 .then(function(results) {
                     showResults(results);
@@ -86,20 +86,26 @@
 <body>
     <h1>2022年12月25日</h1>
     <div>
-        <label for="city">city:</label>
+        <label for="city">都市:</label>
         <input id="city" type="text" placeholder="都市の名前を入力してください">
     </div>
     <div>
-        <label for="weather">weather:</label>
-        <input id="level" type="text" placeholder="天気を入力してください">
+        <label for="weather">天気:</label>
+        <input id="weather" type="text" placeholder="天気を入力してください">
+    </div>
+    <div>
+        <label for="temperature">気温:</label>
+        <input id="temp" type="text" placeholder="気温を入力してください">
     </div>
     <div id="button">
         <button class="btn" onclick="fetchAll()">Fetch All</button>
-        <button class="btn" onclick="searchCity()">Name</button>
         <br>
-        <button class="btn" onclick="searchLevelLT()">Level &lt;</button>
-        <button class="btn" onclick="searchLevel()">Level</button>
-        <button class="btn" onclick="searchLevelGT()">Level &gt;</button>
+        <button class="btn" onclick="searchCity()">都市</button>
+        <button class="btn" onclick="searchWeather()">天気</button>
+        <br>
+        <button class="btn" onclick="searchHtemp()">最高気温</button>
+        <button class="btn" onclick="searchtemp()">気温</button>
+        <button class="btn" onclick="searchLtemp()">最低気温</button>
 
     </div>
     <div id="message">message area</div>
