@@ -31,47 +31,35 @@
             })
         }
 
-        function searchtemp() {
-            let level = parseInt($("#temp").val());
+        function searchWeather() {
+            let weather = $("#weather").val();
             let TestDataClass = ncmb.DataStore(db);
-            TestDataClass
-                .equalTo("temp", temp)
-                .fetchAll()
-                .then(function(results) {
-                    showResults(results);
-                })
+            TestDataClass.equalTo("weather", weather).fetchAll().then(function(results) {
+                showResults(results);
+            })
         }
 
-        function searchLevelLT() {
-            let levelLt = parseInt($("#level").val());
-            let TestDataClass = ncmb.DataStore(db);
-            TestDataClass
-                .lessThan("level", levelLt)
-                .fetchAll()
-                .then(function(results) {
-                    showResults(results);
-                })
+        function searchAtemp() {
+            let TestDataClass= ncmb.DataStore(db); TestDataClass.order("atemp", false).fetchAll() .then(function(results) { showResults(results); })
         }
 
-        function searchLevelGT() {
-            let levelGt = parseInt($("#level").val());
-            let TestDataClass = ncmb.DataStore(db);
-            TestDataClass
-                .greaterThan("level", levelGt)
-                .fetchAll()
-                .then(function(results) {
-                    showResults(results);
-                })
+        function searchHtemp() {
+           let TestDataClass= ncmb.DataStore(db); TestDataClass.order("htemp", false).fetchAll() .then(function(results) { showResults(results); })
+        }
+
+        function searchLtemp() {
+            let TestDataClass= ncmb.DataStore(db); TestDataClass.order("ltemp", false).fetchAll() .then(function(results) { showResults(results); })
         }
 
         function showResults(results) {
             // テーブルのヘッダを生成
-            let msg = "<table><tr><th>都市</th><th>天気</th><th>最高気温</th><th>最低気温</th></tr>";
+            let msg = "<table><tr><th>都市</th><th>天気</th><th>平均気温</th><th>最高気温</th><th>最低気温</th></tr>";
             for (let i = 0; i < results.length; i++) {
                 // 各データを収めた表の列を生成
                 msg += "<tr>";
                 msg += "<td>" + results[i].city + "</td>";
                 msg += "<td class='num'>" + results[i].weather + "</td>";
+                msg += "<td class='num'>" + results[i].atemp + "</td>";
                 msg += "<td class='num'>" + results[i].htemp + "</td>";
                 msg += "<td class='num'>" + results[i].ltemp + "</td>";
                 msg += "</tr>";
@@ -93,18 +81,14 @@
         <label for="weather">天気:</label>
         <input id="weather" type="text" placeholder="天気を入力してください">
     </div>
-    <div>
-        <label for="temperature">気温:</label>
-        <input id="temp" type="text" placeholder="気温を入力してください">
-    </div>
     <div id="button">
         <button class="btn" onclick="fetchAll()">Fetch All</button>
         <br>
         <button class="btn" onclick="searchCity()">都市</button>
         <button class="btn" onclick="searchWeather()">天気</button>
         <br>
+        <button class="btn" onclick="searchAtemp()">平均気温</button>
         <button class="btn" onclick="searchHtemp()">最高気温</button>
-        <button class="btn" onclick="searchtemp()">気温</button>
         <button class="btn" onclick="searchLtemp()">最低気温</button>
 
     </div>
